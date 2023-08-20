@@ -13,11 +13,11 @@ spring:
       primary: javdb
       datasource:
         javdb:
-          url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
           username: root
           password: root
         jm:
-          url: jdbc:mysql://127.0.0.1:3306/jm-db?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://127.0.0.1:3306/jm-db?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
           username: root
           password: root
     type: com.alibaba.druid.pool.DruidDataSource
@@ -27,3 +27,4 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-enums-package: cn.wang.javdbdownload.jm.common.emum

@@ -1,6 +1,7 @@
 package cn.wang.javdbdownload.jm.mapper;
 
 import cn.wang.javdbdownload.common.Constants;
+import cn.wang.javdbdownload.inject.CustomBaseMapper;
 import cn.wang.javdbdownload.jm.entity.pojo.Album;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -14,6 +15,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-08-19
  */
 @DS(Constants.DATASOURCE_JM)
-public interface AlbumMapper extends BaseMapper<Album> {
+public interface AlbumMapper extends CustomBaseMapper<Album> {
 
 }

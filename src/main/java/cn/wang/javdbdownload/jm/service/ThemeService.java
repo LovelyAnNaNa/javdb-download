@@ -1,5 +1,6 @@
 package cn.wang.javdbdownload.jm.service;
 
+import cn.wang.javdbdownload.inject.service.CustomService;
 import cn.wang.javdbdownload.jm.entity.pojo.Album;
 import cn.wang.javdbdownload.jm.entity.pojo.Theme;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author wangbh
  * @since 2023-08-19
  */
-public interface ThemeService extends IService<Theme> {
+public interface ThemeService extends CustomService<Theme> {
 
     /**
      * 初始化分类

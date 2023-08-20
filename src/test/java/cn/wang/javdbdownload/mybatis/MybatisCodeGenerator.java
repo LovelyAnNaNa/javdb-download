@@ -1,6 +1,9 @@
 package cn.wang.javdbdownload.mybatis;
 
 
+import cn.wang.javdbdownload.inject.CustomBaseMapper;
+import cn.wang.javdbdownload.inject.service.CustomService;
+import cn.wang.javdbdownload.inject.service.CustomServiceImpl;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -109,6 +112,9 @@ public class MybatisCodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setSuperEntityClass("");
         strategy.setChainModel(true);
+        strategy.setSuperMapperClass(CustomBaseMapper.class.getName());
+        strategy.setSuperServiceClass(CustomService.class.getName());
+        strategy.setSuperServiceImplClass(CustomServiceImpl.class.getName());
         strategy.setEntityLombokModel(true);
         //是否开启TableId和TableField注解
         strategy.setEntityTableFieldAnnotationEnable(true);
@@ -117,7 +123,7 @@ public class MybatisCodeGenerator {
         strategy.setSuperControllerClass("");
         // 写于父类中的公共字段
 //        strategy.setSuperEntityColumns("id");
-        strategy.setInclude(Stream.of("album", "album_dict").toArray(String[]::new));
+        strategy.setInclude(Stream.of("album_chapter").toArray(String[]::new));
         strategy.setControllerMappingHyphenStyle(true);
         //是否去掉前缀
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

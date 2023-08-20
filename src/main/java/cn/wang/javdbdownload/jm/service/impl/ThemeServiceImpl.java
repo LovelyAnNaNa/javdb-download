@@ -2,6 +2,7 @@ package cn.wang.javdbdownload.jm.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.wang.javdbdownload.common.Constants;
+import cn.wang.javdbdownload.inject.service.CustomServiceImpl;
 import cn.wang.javdbdownload.jm.common.JmConstants;
 import cn.wang.javdbdownload.jm.entity.pojo.Album;
 import cn.wang.javdbdownload.jm.entity.pojo.Theme;
@@ -37,7 +38,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @Service
 @DS(Constants.DATASOURCE_JM)
-public class ThemeServiceImpl extends ServiceImpl<ThemeMapper, Theme> implements ThemeService {
+public class ThemeServiceImpl extends CustomServiceImpl<ThemeMapper, Theme> implements ThemeService {
 
     @Resource
     private AlbumService albumService;
@@ -143,7 +144,7 @@ public class ThemeServiceImpl extends ServiceImpl<ThemeMapper, Theme> implements
             allAlbumList.addAll(tempAlbumList);
             new Thread(() -> {
                 ArrayList<Album> threadAlbumList = new ArrayList<>(tempAlbumList);
-                albumService.myInsertOrUpdateBatch(threadAlbumList);
+                albumService.customSaveOrUpdateBatch(threadAlbumList);
             }).start();
             Elements prevnextElement = document.getElementsByClass("prevnext");
             hasNextPage = !prevnextElement.isEmpty();

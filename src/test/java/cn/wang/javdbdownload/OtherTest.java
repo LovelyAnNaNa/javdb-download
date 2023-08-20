@@ -9,9 +9,10 @@ public class OtherTest {
 
     @Test
     public void test11(){
-        DownloadPicFromURL downloadPicFromURL = new DownloadPicFromURL();
 
-        downloadPicFromURL.downloadPictureByUrlName("https://cdn-msp2.jm-comic1.club/media/photos/480485/00035.webp","D:\\data\\jm\\test");
+//        DownloadPicFromURL downloadPicFromURL = new DownloadPicFromURL();
+//
+//        downloadPicFromURL.downloadPictureByUrlName("https://cdn-msp2.jm-comic1.club/media/photos/480485/00035.webp","D:\\data\\jm\\test");
 
     }
 

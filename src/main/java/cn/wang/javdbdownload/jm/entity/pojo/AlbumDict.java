@@ -1,5 +1,6 @@
 package cn.wang.javdbdownload.jm.entity.pojo;
 
+import cn.wang.javdbdownload.jm.common.emum.AlbumDictTypeEmun;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -42,7 +43,7 @@ public class AlbumDict implements Serializable {
 
     @ApiModelProperty(value = "类型（works-作品、actor-登场人物、tags-标签、author-作者）")
     @TableField("type")
-    private String type;
+    private AlbumDictTypeEmun type;
 
     @TableField("album_id")
     private Long albumId;
