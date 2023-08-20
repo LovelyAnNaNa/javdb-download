@@ -1,0 +1,29 @@
+server:
+  port: 7000
+
+
+
+spring:
+  mvc:
+    pathmatch:
+      # 2.6以后的springboot和swagger-bootstrap-ui冲突解决
+      matching-strategy: ant_path_matcher
+  datasource:
+    dynamic:
+      primary: javdb
+      datasource:
+        javdb:
+          url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          username: root
+          password: root
+        jm:
+          url: jdbc:mysql://127.0.0.1:3306/jm-db?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          username: root
+          password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
