@@ -78,24 +78,8 @@ public class ThemeServiceImpl extends CustomServiceImpl<ThemeMapper, Theme> impl
             }
         });
 
+        super.customSaveOrUpdateByUniqueCol(themeList,Theme::getName);
 
-        LambdaQueryWrapper<Theme> queryWrapper = new LambdaQueryWrapper<>();
-        themeList.forEach(e -> {
-            queryWrapper.eq(Theme::getName,e.getName());
-            List<Theme> list = super.list(queryWrapper);
-            if (CollectionUtil.isNotEmpty(list)){
-                if (list.size() == 1){
-                    Theme dbTheme = list.get(0);
-                    BeanUtils.copyProperties(e,dbTheme,"id");
-                    super.updateById(dbTheme);
-                }else {
-                    list.forEach(dbE -> super.removeById(dbE.getId()));
-                    super.save(e);
-                }
-            }
-
-            queryWrapper.clear();
-        });
         return themeList;
     }
 
@@ -144,7 +128,7 @@ public class ThemeServiceImpl extends CustomServiceImpl<ThemeMapper, Theme> impl
             allAlbumList.addAll(tempAlbumList);
             new Thread(() -> {
                 ArrayList<Album> threadAlbumList = new ArrayList<>(tempAlbumList);
-                albumService.customSaveOrUpdateBatch(threadAlbumList);
+                albumService.customSaveOrUpdateByUniqueCol(threadAlbumList,Album::getJmId);
             }).start();
             Elements prevnextElement = document.getElementsByClass("prevnext");
             hasNextPage = !prevnextElement.isEmpty();

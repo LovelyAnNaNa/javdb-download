@@ -23,6 +23,8 @@ public interface AlbumService extends CustomService<Album> {
      */
     Album flushDataByWeb(Long id);
 
+    String getAlbumPicBasePath(Album album);
+
     int myInsertOrUpdateBatch(List<Album> list);
 
 }

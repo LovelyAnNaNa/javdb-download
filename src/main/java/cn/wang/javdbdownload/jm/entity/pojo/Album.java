@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -27,6 +25,8 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 @TableName("album")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel(value="Album对象", description="漫画信息")
 public class Album implements Serializable {
 

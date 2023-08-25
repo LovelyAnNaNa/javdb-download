@@ -1,5 +1,6 @@
 package cn.wang.javdbdownload.util;
 
+import cn.hutool.core.util.URLUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -15,6 +16,7 @@ public class JsoupUtil {
     public static Document getUrlDocument(String url){
         Document document = null;
         try {
+            url = URLUtil.encode(url);
              document = Jsoup.connect(url)
                     .get();
         } catch (IOException e) {

@@ -1,7 +1,7 @@
 server:
   port: 7000
-
-
+  tomcat:
+    basedir: D:\data\tomcat
 
 spring:
   mvc:
@@ -21,10 +21,13 @@ spring:
           username: root
           password: root
     type: com.alibaba.druid.pool.DruidDataSource
+  main:
+    allow-circular-references: true
 
 
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-enums-package: cn.wang.javdbdownload.jm.common.emum

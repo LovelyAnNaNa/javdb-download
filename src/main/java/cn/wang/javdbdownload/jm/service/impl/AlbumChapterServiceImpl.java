@@ -85,7 +85,11 @@ public class AlbumChapterServiceImpl extends CustomServiceImpl<AlbumChapterMappe
 
 
         if (CollectionUtil.isNotEmpty(documentChapterList)) {
-            super.customSaveOrUpdateBatch(documentChapterList);
+            try {
+                super.customSaveOrUpdateBatch(documentChapterList);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
 

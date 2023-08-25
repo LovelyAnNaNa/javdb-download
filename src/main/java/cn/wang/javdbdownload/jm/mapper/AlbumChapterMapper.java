@@ -4,6 +4,7 @@ import cn.wang.javdbdownload.common.Constants;
 import cn.wang.javdbdownload.inject.CustomBaseMapper;
 import cn.wang.javdbdownload.jm.entity.pojo.AlbumChapter;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.apache.ibatis.annotations.CacheNamespace;
 
 /**
  * <p>
@@ -14,6 +15,7 @@ import com.baomidou.dynamic.datasource.annotation.DS;
  * @since 2023-08-20
  */
 @DS(Constants.DATASOURCE_JM)
+@CacheNamespace
 public interface AlbumChapterMapper extends CustomBaseMapper<AlbumChapter> {
 
 }

@@ -1,11 +1,7 @@
-package cn.wang.javdbdownload;
+package cn.wang.javdbdownload.util;
 
-import cn.hutool.core.lang.func.Func1;
-import cn.wang.javdbdownload.jm.common.JmConstants;
-import cn.wang.javdbdownload.jm.entity.pojo.Album;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.lang.invoke.SerializedLambda;
@@ -13,34 +9,42 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import java.util.function.Consumer;
-
-import static cn.wang.javdbdownload.jm.common.JmConstants.ALBUM_PIC_BASE_PATH;
-import static cn.wang.javdbdownload.jm.common.JmConstants.PIC_BASE_PATH;
-
-public class OtherTest {
+/**
+ * bean属性获取工具类
+ */
+public class FieldUtil {
 
 
-    public void testLambda(Album album, Consumer column){
+    public static String getKeyName(Class clz){
+        Field keyFiled = getKeyFiled(clz);
+        if (keyFiled != null){
+            return keyFiled.getName();
+        }
 
-        String str = "不可视汉化 (ショタスクラッチ12) HEATWAVEsupernova (快刀雄飛雪町灯之助) ヒデヨシディレクターズカット (バカとテストと召喚獣) 中国翻訳_23792";
-        String stb = "不可视汉化 (ショタスクラッチ12) HEATWAVEsuper:nova (快刀雄飛雪町灯之助) ヒデヨシディレクターズカット (バカとテストと召喚獣) 中国翻訳_23792";
+        return null;
     }
 
-    @Test
-    public void test11() throws Exception{
 
+    public static Field getKeyFiled(Class clz){
+        Field[] declaredFields = clz.getDeclaredFields();
+        for (Field field : declaredFields) {
+            TableId tableId = field.getAnnotation(TableId.class);
+            if (tableId != null){
+                return field;
+            }
+        }
 
-        System.out.println(String.format("%s%s%s%s_%s%s%s_%s",PIC_BASE_PATH , ALBUM_PIC_BASE_PATH ,File.separator,"%s","%s",File.separator,"%s","%s"));
-
-
-//        DownloadPicFromURL downloadPicFromURL = new DownloadPicFromURL();
-//
-//        downloadPicFromURL.downloadPictureByUrlName("https://cdn-msp2.jm-comic1.club/media/photos/480485/00035.webp","D:\\data\\jm\\test");
-
+        return null;
     }
 
-    static <T> Field getFiled(SFunction<T,?> fn) throws Exception{
+    /**
+     * 将bean的属性的get方法，作为lambda表达式传入时，获取get方法对应的属性Field
+     *
+     * @param fn  lambda表达式，bean的属性的get方法
+     * @param <T> 泛型
+     * @return 属性对象
+     */
+    public static <T> Field getField(SFunction<T, ?> fn) {
         // 从function取出序列化方法
         Method writeReplaceMethod;
         try {
@@ -62,7 +66,7 @@ public class OtherTest {
 
         // 从lambda信息取出method、field、class等
         String implMethodName = serializedLambda.getImplMethodName();
-        // 确保方法是符合规范的get方法，boolean类型是is开头
+		// 确保方法是符合规范的get方法，boolean类型是is开头
         if (!implMethodName.startsWith("is") && !implMethodName.startsWith("get")) {
             throw new RuntimeException("get方法名称: " + implMethodName + ", 不符合java bean规范");
         }
@@ -82,6 +86,4 @@ public class OtherTest {
 
         return field;
     }
-
-
 }

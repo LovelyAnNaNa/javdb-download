@@ -8,15 +8,18 @@ import cn.wang.javdbdownload.inject.service.CustomServiceImpl;
 import cn.wang.javdbdownload.jm.common.JmConstants;
 import cn.wang.javdbdownload.jm.entity.pojo.Album;
 import cn.wang.javdbdownload.jm.entity.pojo.AlbumChapter;
+import cn.wang.javdbdownload.jm.entity.pojo.Theme;
 import cn.wang.javdbdownload.jm.mapper.AlbumMapper;
 import cn.wang.javdbdownload.jm.service.AlbumChapterService;
 import cn.wang.javdbdownload.jm.service.AlbumDictService;
 import cn.wang.javdbdownload.jm.service.AlbumService;
+import cn.wang.javdbdownload.jm.service.ThemeService;
 import cn.wang.javdbdownload.jm.util.JmHtmlUtil;
 import cn.wang.javdbdownload.util.DownloadPicFromURL;
 import cn.wang.javdbdownload.util.JsoupUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import oracle.jrockit.jfr.jdkevents.ThrowableTracer;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -44,6 +47,8 @@ public class AlbumServiceImpl extends CustomServiceImpl<AlbumMapper, Album> impl
     @Resource
     private AlbumDictService albumDictService;
     @Resource
+    private ThemeService themeService;
+    @Resource
     private AlbumChapterService albumChapterService;
 
     @Override
@@ -54,8 +59,9 @@ public class AlbumServiceImpl extends CustomServiceImpl<AlbumMapper, Album> impl
         }
 
 
+
         DownloadPicFromURL downloadPicFromURL = new DownloadPicFromURL();
-        String albumPicLocalPath = String.format(JmConstants.ALBUM_PIC_INFO_PATH, album.getJmId());
+        String albumPicLocalPath = this.getAlbumPicBasePath(album);
 
         Document document = JsoupUtil.getUrlDocument(String.join("", Arrays.asList(JmConstants.BASE_URL, album.getAlbumHref())));
 
@@ -118,6 +124,24 @@ public class AlbumServiceImpl extends CustomServiceImpl<AlbumMapper, Album> impl
 
         super.updateById(album);
         return album;
+    }
+
+    @Override
+    public String getAlbumPicBasePath(Album album) {
+        Theme theme = themeService.getById(album.getThemeId());
+        return String.format(JmConstants.ALBUM_PIC_INFO_PATH, theme.getName(),theme.getId(),replaceSpecialChar(album.getTitle()),album.getId());
+    }
+
+    private String replaceSpecialChar(String str){
+        String[] specialArray = {"/","\\\\","\\！","\\[","\\]","\\*","\\?","\\|",":","\"","\n"};
+        try {
+            for (String s : specialArray) {
+                str = str.replaceAll(s,"");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return str;
     }
 
 
